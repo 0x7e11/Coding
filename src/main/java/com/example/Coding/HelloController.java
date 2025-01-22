@@ -13,11 +13,13 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Base64;
+import org.apache.commons.codec.binary.Hex;
+
 
 public class HelloController {
     public File selectedFile;
 
-    public String base64EncodedString;
+    public String EncodedString;
 
     @FXML
     private Button coding_id;
@@ -54,18 +56,29 @@ public class HelloController {
 
     @FXML
     void coding(ActionEvent event) {
-        if(code_choice.getValue().equals("base64")){
+        if(code_choice.getValue().equals("Base64")){
             try {
                 // 读取文件内容并转换为字节数组
                 byte[] fileContent = Files.readAllBytes(selectedFile.toPath());
 
                 // 对字节数组进行 Base64 编码
-                base64EncodedString = Base64.getEncoder().encodeToString(fileContent);
+                EncodedString = Base64.getEncoder().encodeToString(fileContent);
 
                 // 输出 Base64 编码后的字符串
 //                System.out.println("Base64 编码后的字符串:\n" + base64EncodedString);
-                shuchu_id.setText(base64EncodedString);
+                shuchu_id.setText(EncodedString);
             } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(code_choice.getValue().equals("Hex")){
+            try {
+                byte[] fileContent = Files.readAllBytes(selectedFile.toPath());
+                EncodedString = Hex.encodeHexString(fileContent);
+                shuchu_id.setText(EncodedString);
+
+            }catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -77,13 +90,13 @@ public class HelloController {
     void copy(ActionEvent event) {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();
-        content.putString(base64EncodedString);
+        content.putString(EncodedString);
         clipboard.setContent(content);
     }
 
     public void initialize(){
-        code_choice.setItems(FXCollections.observableArrayList("base64"));
-        code_choice.setValue("base64");
+        code_choice.setItems(FXCollections.observableArrayList("Base64","Hex"));
+        code_choice.setValue("Base64");
         shuchu_id.setWrapText(true); //输出栏设置为自动换行
 
 
