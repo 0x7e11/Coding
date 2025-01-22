@@ -2,4 +2,5 @@
 
 点击导入文件，选择编码类型（Base64或Hex），点击开始编码
 
-![image](https://github.com/0x7e11/coding/assets/79570367/fc54ea86-f144-4d9b-a3cb-8ca10ff5db35)
+![微信截图_20250122160921](https://github.com/user-attachments/assets/7a63a43e-3ad9-4a8f-abf8-f3543c6b87fc)
+
